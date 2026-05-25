@@ -1,1 +1,309 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgroWater - Calculadora de Uso de Água</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background: linear-gradient(135deg, #0b3d0b, #145214, #1f7a1f);
+      color: white;
+      min-height:100vh;
+    }
+
+    header{
+      width:100%;
+      padding:30px;
+      text-align:center;
+      background: rgba(0,0,0,0.25);
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    header h1{
+      font-size:3rem;
+      margin-bottom:10px;
+      color:#9cff9c;
+    }
+
+    header p{
+      font-size:1.1rem;
+      color:#d6ffd6;
+    }
+
+    .container{
+      width:90%;
+      max-width:1200px;
+      margin:auto;
+      padding:40px 0;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:30px;
+    }
+
+    .card{
+      background: rgba(255,255,255,0.08);
+      border-radius:20px;
+      padding:30px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.3);
+      backdrop-filter: blur(8px);
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+    }
+
+    h2{
+      margin-bottom:20px;
+      color:#a8ffb0;
+    }
+
+    .input-group{
+      margin-bottom:20px;
+    }
+
+    label{
+      display:block;
+      margin-bottom:8px;
+      font-weight:bold;
+    }
+
+    input, select{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:10px;
+      font-size:1rem;
+      outline:none;
+    }
+
+    button{
+      width:100%;
+      padding:15px;
+      border:none;
+      border-radius:12px;
+      background:#6eff6e;
+      color:#063806;
+      font-size:1.1rem;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    button:hover{
+      background:#9dff9d;
+      transform:scale(1.02);
+    }
+
+    .resultado{
+      margin-top:25px;
+      padding:20px;
+      border-radius:15px;
+      background: rgba(0,0,0,0.25);
+      line-height:1.8;
+      font-size:1.1rem;
+    }
+
+    .economia{
+      color:#7CFF7C;
+      font-weight:bold;
+    }
+
+    .alto{
+      color:#ff8f8f;
+      font-weight:bold;
+    }
+
+    .medio{
+      color:#ffe08f;
+      font-weight:bold;
+    }
+
+    .baixo{
+      color:#9cff9c;
+      font-weight:bold;
+    }
+
+    .info{
+      margin-top:20px;
+      line-height:1.7;
+      color:#e8ffe8;
+    }
+
+    .dicas{
+      margin-top:20px;
+    }
+
+    .dicas li{
+      margin-bottom:10px;
+    }
+
+    footer{
+      text-align:center;
+      padding:25px;
+      background: rgba(0,0,0,0.25);
+      margin-top:30px;
+      color:#d0ffd0;
+    }
+
+    .agua-icon{
+      font-size:80px;
+      text-align:center;
+      margin-bottom:20px;
+    }
+
+    @media(max-width:900px){
+      .container{
+        grid-template-columns:1fr;
+      }
+
+      header h1{
+        font-size:2.2rem;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🌱 AgroWater</h1>
+    <p>Calculadora Inteligente de Uso de Água no Agro</p>
+  </header>
+
+  <section class="container">
+
+    <!-- CALCULADORA -->
+    <div class="card">
+
+      <div class="agua-icon">💧</div>
+
+      <h2>Calculadora de Consumo</h2>
+
+      <div class="input-group">
+        <label>Área Plantada (hectares)</label>
+        <input type="number" id="area" placeholder="Ex: 15">
+      </div>
+
+      <div class="input-group">
+        <label>Tipo de Cultura</label>
+        <select id="cultura">
+          <option value="5000">Milho</option>
+          <option value="7000">Arroz</option>
+          <option value="4500">Soja</option>
+          <option value="6000">Cana-de-açúcar</option>
+          <option value="3000">Hortaliças</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Dias de Irrigação por Mês</label>
+        <input type="number" id="dias" placeholder="Ex: 20">
+      </div>
+
+      <button onclick="calcular()">Calcular Consumo</button>
+
+      <div class="resultado" id="resultado">
+        Seu resultado aparecerá aqui...
+      </div>
+
+    </div>
+
+    <!-- INFORMAÇÕES -->
+    <div class="card">
+
+      <h2>🌎 Sustentabilidade no Agro</h2>
+
+      <div class="info">
+        A água é um dos recursos mais importantes para a agricultura. 
+        O uso consciente ajuda:
+      </div>
+
+      <ul class="dicas">
+        <li>✅ Reduzir desperdícios</li>
+        <li>✅ Melhorar a produtividade</li>
+        <li>✅ Preservar rios e nascentes</li>
+        <li>✅ Diminuir custos na produção</li>
+        <li>✅ Garantir sustentabilidade futura</li>
+      </ul>
+
+      <h2 style="margin-top:30px;">💡 Dicas Inteligentes</h2>
+
+      <ul class="dicas">
+        <li>🌱 Utilize irrigação por gotejamento</li>
+        <li>🌧️ Aproveite água da chuva</li>
+        <li>📊 Monitore o solo constantemente</li>
+        <li>⏰ Irrigue em horários mais frescos</li>
+        <li>🚜 Faça manutenção nos sistemas de irrigação</li>
+      </ul>
+
+    </div>
+
+  </section>
+
+  <footer>
+    © 2026 AgroWater | Tecnologia e Sustentabilidade no Campo 🌿
+  </footer>
+
+  <script>
+
+    function calcular(){
+
+      let area = Number(document.getElementById("area").value);
+      let cultura = Number(document.getElementById("cultura").value);
+      let dias = Number(document.getElementById("dias").value);
+
+      let consumo = area * cultura * dias;
+
+      let classificacao = "";
+      let dica = "";
+
+      if(consumo > 1500000){
+        classificacao = "<span class='alto'>ALTO CONSUMO</span>";
+        dica = "Considere técnicas mais sustentáveis para reduzir o desperdício.";
+      }
+      else if(consumo > 700000){
+        classificacao = "<span class='medio'>CONSUMO MODERADO</span>";
+        dica = "Seu consumo está razoável, mas ainda pode melhorar.";
+      }
+      else{
+        classificacao = "<span class='baixo'>CONSUMO EFICIENTE</span>";
+        dica = "Parabéns! Seu uso de água está sustentável.";
+      }
+
+      let economia = consumo * 0.30;
+
+      document.getElementById("resultado").innerHTML = `
+        <h3>📋 Resultado</h3>
+
+        <p><strong>Consumo estimado:</strong> 
+        ${consumo.toLocaleString('pt-BR')} litros/mês</p>
+
+        <p><strong>Classificação:</strong> ${classificacao}</p>
+
+        <p>${dica}</p>
+
+        <hr style="margin:15px 0; border-color:rgba(255,255,255,0.2);">
+
+        <p class="economia">
+        💡 Economia possível com boas práticas:
+        ${economia.toLocaleString('pt-BR')} litros/mês
+        </p>
+      `;
+    }
+
+  </script>
+
+</body>
+</html>
